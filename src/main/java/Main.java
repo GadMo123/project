@@ -5,7 +5,6 @@ import java.net.InetSocketAddress;
 
 public class Main {
     public static void main(String[] args) {
-
         try {
             int port = 9000;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -17,6 +16,5 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
