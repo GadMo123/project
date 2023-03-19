@@ -17,3 +17,13 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+/*setting Main  */
+jar {
+    manifest {
+        attributes(
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' '),
+                "Main-Class": "Main"
+        )
+    }
+}
