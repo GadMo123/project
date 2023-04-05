@@ -1,0 +1,24 @@
+
+
+docker build -t my-app:1.0 .
+
+docker run -d --name nginx-base -p 80:80 nginx:latest
+#docker cp nginx-base:/etc/nginx/conf.d/default.conf ./default.conf
+docker cp ./default.conf nginx-base:/etc/nginx/conf.d/default.conf
+#docker exec nginx-base nginx -t  validate conf
+docker exec nginx-base nginx -s reload
+
+docker run -d -dp 9000:9000 --name containerOne my-app:1.0
+docker run -d -dp 9000:9000 --name containerTwo my-app:1.0
+
+
+#docker stop containerOne
+#docker stop containerTwo
+#docker rm containerTwo
+#docker rm containerOne
+
+version:'1'
+services:
+  app:
+    image: my-app:1.0
+    ports: 9000:9000

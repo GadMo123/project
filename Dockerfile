@@ -1,7 +1,10 @@
 FROM openjdk:19-alpine
 
-RUN mkdir -p home/app
+WORKDIR /usr/src/app
 
-ADD ./build/libs/*.jar boot-bootcamp.jar
+COPY ./build/libs/*.jar boot-bootcamp.jar
+
+EXPOSE 9000
 
 ENTRYPOINT ["java","-jar","boot-bootcamp.jar"]
+
