@@ -1,0 +1,14 @@
+version: "2.15.1"
+services:
+  web-app1:
+    build: .
+    ports:
+      - 9000:9000
+  web-app2:
+    build: .
+    ports:
+      - 9001:9000
+  nginx:
+    build: ./Nginx
+    ports:
+      - 8080:8080
