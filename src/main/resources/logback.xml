@@ -1,0 +1,10 @@
+<!-- logback.xml -->
+<configuration>
+
+    <!-- Configuration for other loggers (if any) -->
+
+    <logger name="org.eclipse.jetty" level="INFO" />
+
+    <!-- Configuration for other loggers (if any) -->
+
+</configuration>
