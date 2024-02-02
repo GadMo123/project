@@ -4,11 +4,11 @@ services:
   web-app1:
     build: .
     ports:
-      - 9000:9000
+      - 9000:8080
   web-app2:
     build: .
     ports:
-      - 9001:9000
+      - 9001:8080
   nginx:
     image: nginx:latest
     volumes:
