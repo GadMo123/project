@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 
 #Using shadow jar gradle plugin to build fat jar with dependencies
 COPY build/libs/my-app-1.0.0-all.jar boot-bootcamp.jar
+COPY build/resources/* resources
 
 EXPOSE 8080
 
