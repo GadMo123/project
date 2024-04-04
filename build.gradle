@@ -16,6 +16,7 @@ tasks.withType(JavaCompile) {
 
 
 dependencies {
+    implementation 'co.elastic.clients:elasticsearch-java:8.12.0'
     implementation 'org.glassfish.jersey.containers:jersey-container-servlet:3.1.5'
     implementation 'org.eclipse.jetty:jetty-server:11.0.14'
     implementation 'org.eclipse.jetty:jetty-servlet:11.0.14'
@@ -25,9 +26,9 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.4.7'
     implementation 'com.google.inject:guice:5.1.0'
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-
 }
 
 test {

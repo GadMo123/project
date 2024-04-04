@@ -54,6 +54,12 @@ In Elasticsearch your doc will look something like:
 `GET /search?message=camp&header=Macintosh` which will return a list of all the documents matching the search
 - Add an integration test
 
+Note (Gad) - for Elastic v8 - we need to increase memory limit for the container to at least 262144 at the host machine:
+```
+$ wsl -d docker-desktop sh -c "sysctl -w vm.max_map_count=262144"
+vm.max_map_count = 262144
+```
+
 **Part 6**
 - Add kafka Docker to your boot-bootcamp docker-compose
 - Change your /index endpoint behaviour: Instead of indexing the message directly to Elasticsearch, it will write the message to kafka
@@ -72,6 +78,8 @@ In Elasticsearch your doc will look something like:
 - Everyone else (listener, indexer etc.) who wants to get an account details, will request it from accounts-service. For this, you will need accounts-service to expose some other endpoints (i.e `GET /account/token/YZZXfOLKfTJEMGgKknWaKOpURnvALnRi` responds with `{ "id": 1, "name": "Kivid", "token": "YZZXfOLKfTJEMGgKknWaKOpURnvALnRi", "esIndexName": "logz-jopnbwmknooanqwzxgpybunufztysazs" }` )
 
 ## Installation
+
+
 Building the JAR file:
 
 ```
@@ -105,4 +113,27 @@ curl -X POST 'http://localhost:8080/api/index' -H "Content-Type: application/jso
 To search for messages, use the curl command
 ```
 curl -X GET 'http://localhost:8080/api/search?message=boot&header=Macintosh'
+```
+
+## Deploy
+
+
+Local setup for Elasticsearch container (windows, docker desktop)
+```
+configure Docker Elasticseach container size:
+wsl -d docker-desktop -u root
+sysctl -w vm.max_map_count=262144
+```
+
+```
+docker: 
+# docker run --name es01 -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:8.12.1
+# docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+Clean all: 
+# FOR /F "tokens=*" %i IN ('docker images -q') DO docker rmi %i
+# docker rmi $(docker images -a -q)
+
+Post Elasticsearch:
+# $headers = @{"Content-Type" = "application/json"; "User-Agent" = "Mozilla/5.0 (Macintosh; Intel Mac OS X)"} 
+# Invoke-WebRequest -Uri 'http://localhost:8080/index/1' -Method Post -Body '{"message": "boot camp first index"}' -Headers $headers      
 ```
