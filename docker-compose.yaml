@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   web-app1:
@@ -18,3 +18,16 @@ services:
     depends_on:
       - web-app1
       - web-app2
+  setup:
+    extends:
+      file: Elastic-docker-compose.yaml
+      service: setup
+  elasticsearch:
+    extends:
+      file: Elastic-docker-compose.yaml
+      service: es01
+volumes:
+  certs:
+    driver: local
+  esdata01:
+    driver: local
