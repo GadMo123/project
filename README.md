@@ -115,25 +115,32 @@ To search for messages, use the curl command
 curl -X GET 'http://localhost:8080/api/search?message=boot&header=Macintosh'
 ```
 
-## Deploy
+## Usfull scripts for testing on local machine (everything is automated for hosting machine via docker-compose)
 
 
 Local setup for Elasticsearch container (windows, docker desktop)
 ```
-configure Docker Elasticseach container size:
+Configure Docker Elasticseach container memory:
 wsl -d docker-desktop -u root
 sysctl -w vm.max_map_count=262144
 ```
 
 ```
-docker: 
+Eun docker Elasticsearch on local machine testing
 # docker run --name es01 -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:8.12.1
 # docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
-Clean all: 
+# copy menually the new password to .env
+```
+
+
+
+```
+Do Post Elasticsearch:
+# $headers = @{"Content-Type" = "application/json"; "User-Agent" = "Mozilla/5.0 (Macintosh; Intel Mac OS X)"} 
+```
+
+```
+Clean all docker images: 
 # FOR /F "tokens=*" %i IN ('docker images -q') DO docker rmi %i
 # docker rmi $(docker images -a -q)
-
-Post Elasticsearch:
-# $headers = @{"Content-Type" = "application/json"; "User-Agent" = "Mozilla/5.0 (Macintosh; Intel Mac OS X)"} 
-# Invoke-WebRequest -Uri 'http://localhost:8080/index/1' -Method Post -Body '{"message": "boot camp first index"}' -Headers $headers      
 ```

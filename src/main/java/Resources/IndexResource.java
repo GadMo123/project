@@ -15,11 +15,12 @@ import org.slf4j.LoggerFactory;
 public class IndexResource {
 
     @POST
-    @Path("/{index_id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("/{index_id}")
     public Response indexMessage(@HeaderParam("User-Agent") String userAgent, @PathParam("index_id") String indexId, Message message){
         try {
+            //IndexDocument indexDocument = new IndexDocument(getMessage(message), userAgent);
             IndexDocument indexDocument = new IndexDocument(message.message(), userAgent);
 
             // Access the ElasticsearchClient from Elasticsearch singleton
@@ -37,4 +38,5 @@ public class IndexResource {
             throw new RuntimeException(e);
         }
     }
+    //public static String getMessage(String message) { return message.substring(8); }
 }
